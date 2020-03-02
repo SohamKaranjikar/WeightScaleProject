@@ -51,6 +51,7 @@ void configure_wdt(void)
 // Put the Arduino to deep sleep. Only an interrupt can wake it up.
 void sleep(int ncycles)
 {  
+  scale.power_down();
   int nbr_remaining = ncycles; // defines how many cycles should sleep
 
   // Set sleep to full power down.  Only external interrupts or
@@ -79,6 +80,7 @@ void sleep(int ncycles)
  
   // put everything on again
 //  power_all_enable();
+  scale.power_up();
 }
 
 
