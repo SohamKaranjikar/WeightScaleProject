@@ -11,7 +11,6 @@ void setup()
 {
   Serial.begin(57600);
   Serial.println("Hello, World!");
-//  delay(1000);
 
   pinMode(2,INPUT_PULLUP);
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
@@ -23,14 +22,18 @@ volatile int sleepCount = 0;
 
 void loop()
 {
+  delay(100);
   if (scale.is_ready()) {
     float x = scale.get_units(10);
     Serial.println(x);
+    if (x > 2) {
+      sleepCount = 0;
+      return;
+    }
     sleepCount++;
-    sleepCount%=10;
+    sleepCount%=5;
     if (sleepCount == 0) {
       Serial.println("Going to sleep");
-      delay(100);
       attachInterrupt(digitalPinToInterrupt(2), wakeUp, LOW);
       sleep_enable();
       set_sleep_mode(SLEEP_MODE_PWR_DOWN);
@@ -39,7 +42,6 @@ void loop()
   } else {
     Serial.println("HX711 not found.");
   }
-  delay(100);
 }
 
 void wakeUp()
