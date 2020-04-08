@@ -22,7 +22,7 @@ void RTC_init(void)
     temp = CLKCTRL.XOSC32KCTRLA;
     temp &= ~CLKCTRL_ENABLE_bm;
     /* Writing to protected register */
-    ccp_write_io((void*)&CLKCTRL.XOSC32KCTRLA, temp);
+    CLKCTRL.XOSC32KCTRLA = temp;
     
     while(CLKCTRL.MCLKSTATUS & CLKCTRL_XOSC32KS_bm)
     {
@@ -33,13 +33,13 @@ void RTC_init(void)
     temp = CLKCTRL.XOSC32KCTRLA;
     temp &= ~CLKCTRL_SEL_bm;
     /* Writing to protected register */
-    ccp_write_io((void*)&CLKCTRL.XOSC32KCTRLA, temp);
+    CLKCTRL.XOSC32KCTRLA = temp;
     
     /* Enable oscillator: */
     temp = CLKCTRL.XOSC32KCTRLA;
     temp |= CLKCTRL_ENABLE_bm;
     /* Writing to protected register */
-    ccp_write_io((void*)&CLKCTRL.XOSC32KCTRLA, temp);
+    CLKCTRL.XOSC32KCTRLA = temp;
     
     /* Initialize RTC: */
     while (RTC.STATUS > 0)
