@@ -51,7 +51,7 @@ void RTC_init(void)
     RTC.CLKSEL = RTC_CLKSEL_TOSC32K_gc;
 
     /* Run in debug: enabled */
-    RTC.DBGCTRL = RTC_DBGRUN_bm;
+    RTC.DBGCTRL = ~RTC_DBGRUN_bm;
     
     RTC.PITINTCTRL = RTC_PI_bm; /* Periodic Interrupt: enabled */
     
@@ -68,6 +68,12 @@ ISR(RTC_PIT_vect)
     /* Clear flag by writing '1': */
     RTC.PITINTFLAGS = RTC_PI_bm;
 }
+
+//void SLPCTRL_init(void)
+//{
+//    SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc;
+//    SLPCTRL.CTRLA |= SLPCTRL_SEN_bm;
+//}
 
 // Put the Arduino to deep sleep. Only an interrupt can wake it up.
 void sleep(int ncycles)
@@ -108,6 +114,8 @@ void setup()
 {
   Serial.begin(57600);
   Serial.println("Hello, World!");
+
+  RTC_init();
   
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
   scale.set_scale(-22800);
