@@ -119,6 +119,7 @@ void setup()
   Serial.println("Hello, World!");
   
   RTC_init();
+  SLPCTRL_init();
 
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
   scale.set_scale(-22800);
