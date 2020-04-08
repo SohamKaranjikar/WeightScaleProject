@@ -15,6 +15,7 @@ HX711 scale;
 
 void RTC_init(void)
 {
+    cli();
     uint8_t temp;
 
     /* Initialize 32.768kHz Oscillator: */
@@ -57,6 +58,7 @@ void RTC_init(void)
 
     RTC.PITCTRLA = RTC_PERIOD_CYC16384_gc /* RTC Clock Cycles 32768 */
                  | RTC_PITEN_bm; /* Enable: enabled */
+    sei();
 }
 
 
@@ -112,9 +114,10 @@ void sleep(int ncycles)
 
 void setup()
 {
+  /* Enable Global Interrupts */
   Serial.begin(57600);
   Serial.println("Hello, World!");
-
+  
   RTC_init();
 
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
