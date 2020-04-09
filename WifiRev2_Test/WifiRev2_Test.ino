@@ -20,44 +20,47 @@ void RTC_init(void)
 
     /* Initialize 32.768kHz Oscillator: */
     /* Disable oscillator: */
-    temp = CLKCTRL.XOSC32KCTRLA;
-    temp &= ~CLKCTRL_ENABLE_bm;
+    //temp = CLKCTRL.INT1K;
+    RTC.CLKSEL = INT1K;
+    //temp &= ~CLKCTRL_ENABLE_bm;
     /* Writing to protected register */
-    CLKCTRL.XOSC32KCTRLA = temp;
+    //CLKCTRL.XOSC32KCTRLA = temp;
 
-    while(CLKCTRL.MCLKSTATUS & CLKCTRL_XOSC32KS_bm)
-    {
-        ; /* Wait until XOSC32KS becomes 0 */
-    }
+//    while(CLKCTRL.MCLKSTATUS & CLKCTRL_XOSC32KS_bm)
+//    {
+//        ; /* Wait until XOSC32KS becomes 0 */
+//    }
 
     /* SEL = 0 (Use External Crystal): */
-    temp = CLKCTRL.XOSC32KCTRLA;
-    temp &= ~CLKCTRL_SEL_bm;
+//    temp = CLKCTRL.XOSC32KCTRLA;
+//    temp &= ~CLKCTRL_SEL_bm;
     /* Writing to protected register */
-    CLKCTRL.XOSC32KCTRLA = temp;
+    //CLKCTRL.XOSC32KCTRLA = temp;
 
     /* Enable oscillator: */
-    temp = CLKCTRL.XOSC32KCTRLA;
-    temp |= CLKCTRL_ENABLE_bm;
-    /* Writing to protected register */
-    CLKCTRL.XOSC32KCTRLA = temp;
+//    temp = CLKCTRL.XOSC32KCTRLA;
+//    temp |= CLKCTRL_ENABLE_bm;
+//    /* Writing to protected register */
+//    CLKCTRL.XOSC32KCTRLA = temp;
+    RTC.PITCTRLA = CYC1024;
 
     /* Initialize RTC: */
     while (RTC.STATUS > 0)
     {
         ; /* Wait for all register to be synchronized */
+        Serial.println("Waiting for RTC.Status to be > 0");
     }
 
     /* 32.768kHz External Crystal Oscillator (XOSC32K) */
-    RTC.CLKSEL = RTC_CLKSEL_TOSC32K_gc;
+    //RTC.CLKSEL = RTC_CLKSEL_TOSC32K_gc;
 
     /* Run in debug: enabled */
-    RTC.DBGCTRL = ~RTC_DBGRUN_bm;
+    //RTC.DBGCTRL = ~RTC_DBGRUN_bm;
 
-    RTC.PITINTCTRL = RTC_PI_bm; /* Periodic Interrupt: enabled */
-
-    RTC.PITCTRLA = RTC_PERIOD_CYC16384_gc /* RTC Clock Cycles 32768 */
-                 | RTC_PITEN_bm; /* Enable: enabled */
+    RTC.PITINTCTRL = 1; /* Periodic Interrupt: enabled */
+    
+//    RTC.PITCTRLA = RTC_PERIOD_CYC16384_gc /* RTC Clock Cycles 32768 */
+//                 | RTC_PITEN_bm; /* Enable: enabled */
     sei();
 }
 
@@ -68,7 +71,7 @@ void RTC_init(void)
 ISR(RTC_PIT_vect)
 {
     /* Clear flag by writing '1': */
-    RTC.PITINTFLAGS = RTC_PI_bm;
+    RTC.PITINTFLAGS = 1;
 }
 
 void SLPCTRL_init(void)
