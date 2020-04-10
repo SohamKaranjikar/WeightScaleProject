@@ -21,7 +21,7 @@ void RTC_init(void)
     /* Initialize 32.768kHz Oscillator: */
     /* Disable oscillator: */
     //temp = CLKCTRL.INT1K;
-    RTC.CLKSEL = INT1K;
+    RTC.CLKSEL |= B00000001;
     //temp &= ~CLKCTRL_ENABLE_bm;
     /* Writing to protected register */
     //CLKCTRL.XOSC32KCTRLA = temp;
@@ -42,7 +42,7 @@ void RTC_init(void)
 //    temp |= CLKCTRL_ENABLE_bm;
 //    /* Writing to protected register */
 //    CLKCTRL.XOSC32KCTRLA = temp;
-    RTC.PITCTRLA = CYC1024;
+    RTC.PITCTRLA |= B01001001;
 
     /* Initialize RTC: */
     while (RTC.STATUS > 0)
