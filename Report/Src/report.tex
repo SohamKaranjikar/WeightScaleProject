@@ -83,6 +83,7 @@
 % Limit your use of new commands and special formatting.
 
 \graphicspath{{./Images/}}
+\usepackage{listings}
 
 \title{CS 431: Weight Scale Project}
 \author{Ivan Johnson \and Soham Karanjikar}
@@ -95,11 +96,10 @@
 \maketitle
 
 % Abstracts are required.
-{\begin{flushleft}
+
 {\newpage \Large\section{Introduction}\par}
 {\large The main objective of this project was to create a weight scale and display the readings somewhere visible. The requirement was to use some sort of micro controller and apply the concept we had learned in CS 431 to a practical, useful, example. The initial plan was to use an existing scale and try to take readings through communicating with the micro controller on the scale, however, this proved to be more work than creating a new scale. The components, procedure, results and future possibilities are explained in this paper.
 \par}
-
 
 \vspace{.12 in}
 
@@ -177,7 +177,7 @@ Currently, the readings are only visible on the console so adding an LCD screen 
 \par}
 
 \newpage {\Large \section{Appendix} \par}
-All the code is available at \href{https://github.com/SohamKaranjikar/WeightScaleProject}{https://github.com/SohamKaranjikar/WeightScaleProject}
-\end{flushleft}}
+
+\lstinputlisting[language=C]{../../BathroomScale/BathroomScale.ino}
 
 \end{document}
