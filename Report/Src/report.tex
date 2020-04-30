@@ -63,18 +63,6 @@
 \titlespacing\subsection{0pt}{0pt}{-8pt}
 \renewcommand{\baselinestretch}{1.15}
 
-% This designs the title display style for the maketitle command
-\makeatletter
-\newcommand\sixteen{\@setfontsize\sixteen{17pt}{6}}
-\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
-\begin{flushleft}
-\sixteen\bfseries \@title
-\medskip
-\end{flushleft}
-\textit{\@author}
-\egroup}
-\makeatother
-
 % This styles the bibliography and citations.
 %\usepackage[biblabel]{cite}
 \usepackage[sort&compress]{natbib}
@@ -96,26 +84,15 @@
 
 \graphicspath{{./Images/}}
 
-
-% Place your title below. Use Title Capitalization.
-
-
-% Add author information below. Communicating author is indicated by an asterisk, the affiliation is shown by superscripted lower case letter if several affiliations need to be noted.
-\title{}
+\title{CS 431: Weight Scale Project}
+\author{Ivan Johnson \and Soham Karanjikar}
+\date{2020-05-01}
 
 \pagestyle{empty}
 \begin{document}
 
-{\center \huge{CS 431: Weight Scale Project\par}}
-{\center \large
-Ivan Johnson \\ \medskip
-Soham Karanjikar \\
-Written: April 29th 2020\\ \medskip  \par}
-
 % Makes the title and author information appear.
-\vspace*{.01 in}
 \maketitle
-\vspace{.12 in}
 
 % Abstracts are required.
 {\begin{flushleft}
