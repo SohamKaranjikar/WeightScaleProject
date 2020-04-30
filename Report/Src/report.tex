@@ -40,29 +40,43 @@
 
 \newpage
 \section{Introduction}
-The main objective of this project was to create a weight scale and display the
-readings somewhere visible. The requirement was to use some sort of micro
-controller and apply the concept we had learned in CS 431 to a practical,
-useful, example. The initial plan was to use an existing scale and try to take
-readings through communicating with the micro controller on the scale, however,
-this proved to be more work than creating a new scale. The components,
-procedure, results, limitations, and potential improvements are explained in
-this paper.
+The main motivating factor behind this project was to make a scale that could
+take the weight readings and upload them the data to our
+\myLink{https://github.com/Ivan-Johnson/LifeLogServer}{private servers}. As much
+of this is beyond the scope of what was taught in class, however, for the
+purposes of this class the project is limited to the much simpler goal of simply
+measuring and displaying the force that is applied to a sensor.
 
-In the appendices we reproduce our original proposal, a listing of our exact
-code, and a list of what we used for this project.
+Besides the learning experience of building the system ourselves, the main
+benefit of this approach over buying a standard smart scale is that it gives us
+complete control of the system. This alleviates many privacy concerns and allows
+for the possibility of integrating the scale with arbitrary
+\myLink{https://github.com/Ivan-Johnson/LifeLogServer}{health tracking systems}.
+
+This was a non-trivial task requiring that we research the construction of
+commercial bathroom scales, choose the most practical parts for our own design,
+build then test the design, make the software to run the system, and finally
+optimize the software to minimize power usage. This process enhanced our
+learning experience in the course by giving us a more hands-on experience with
+how embedded systems are designed and used.
+
+The initial plan was to use an existing scale and try to take readings through
+communicating with the micro controller on the scale, however, this proved to be
+more work than creating a new scale. The components, procedure, results,
+limitations, and potential improvements are explained in this paper. The
+appendices contain our original proposal, our code, and a list of what we used
+for this project.
 
 \section{Components}
 \subsection{Microcontroller}
 The board used was an Arduino Uno, a hobbyist development board used in many
 projects at their preliminary stage, with the MCU being an ATMEGA4809. The
 reason for choosing this board was because of the ease of using it and the
-libraries already available for communicating with various chips. Further, the
-Arduino IDE is also very user friendly and allowed us to quickly test code.
-
-We could have potentially used a cheaper and smaller option such as an ESP32,
-but there were Arduinos already present in the lab which allowed us to start
-immediately.
+libraries already available for communicating with various chips. Furthermore,
+the Arduino IDE is also very user friendly and allowed us to quickly test
+code. We could have potentially used a cheaper and smaller option such as an
+ESP32, but there were Arduinos already present in the lab which allowed us to
+start immediately.
 
 \subsection{Load Cells and Amplifier Chip}
 While researching methods to communicate with a controller on an existing scale
@@ -172,30 +186,42 @@ out how to use the RTC to wake up the MCU. In the end we did figure it
 out. Further, working on the project when the team had to communicate online was
 also difficult as only one of us could see the errors firsthand.
 
-Another problem was that the scale's calibration value had to be reset after
-physically moving the scale anytime. This was due to the fact that the slightest
-movement of the load cell placement affected the readings from the HX711
-vastly. Since we did not have a proper mounted fit, the load cells moved quite
-easily. This issue however does not occur after calibrating and keeping the
-scale in one place.
+Another problem was that the scale had to be recalibrated each time the scale
+was moved. This was due to the fact that the slightest movement of the sensors
+placement affected the readings from the HX711 vastly. Since we did not have a
+proper mounted fit, the load cells shifted quite easily. This issue was largely
+mitigated by taping the sensors to the surface they rested on, and by not moving
+the scale without recalibrating it afterwords.
 
-\section{Future Extention}
-The main motivating factor behind this project was to make a scale that could
-take the weight readings and upload them to a database. However, since uploading
-data is not part of what we had learned in CS 431 or a part of embedded systems,
-we were told that would not be a requirement in our project. Yes, there are
-scales available that upload the readings to their database, but it is
-controlled by and visible to the database owners. Building a scale allows to
-customize it as much as needed and upload the data to a personal a database
-which is not accessible to anyone else.
+\section{Current Limitations and Potential Improvements}
 
-Another extension would be 3D print a frame for the scale so that the load cells
-do not move and the scale does not have to be calibrated on every start up.
+The biggest limitation of this project is the calibration issue. Currently the
+load cells rest on mounts that were made for sensors of a different shape, and
+thus they shift very easily. We expect that by 3D printing a custom mount for
+the load cells the need for recalibration would be almost entirely removed,
+possibly even to the point of making it unnecessary to tare the scale each time
+it turns on.
 
-Currently, the readings are only visible on the console so adding an LCD screen
-would allow to see the readings on the scale without the need of a monitor. Also
-it would make sense to poll the readings for a some time and then display only
-the average once the readings are stable.
+The system could be improved by implementing our long-term goal of storing
+readings in a database, and using the data for tracking weight over time or
+finding correlations with other health data.
+
+Another notable limitation of our current design is that readings are only
+visible on the console. Modifying the hardware design to add an LCD screen would
+allow the system to function without the need for the Arduino to be connected to
+an external computer. In a similar vein, it would useful to compute a single
+measurement instead of just reporting a stream of data from the sensor. In
+particular, an algorithm could be made to monitor the stream of data, detect
+when it is relatively stable, and only display the average of the stable
+measurements.
+
+The power efficiency of the current system is limited by poor foresight in the
+hardware design. It might be possible to design the hardware such that the
+resistance of the load cells can be amplified and measured as an analogue
+voltage. If this were possible, then the Arduino could be configured so that
+instead of waking up every few seconds to check if there is a weight on the
+scale, the presence of a weight triggers an interrupt that wakes the Arduino
+from sleep.
 
 \newpage
 \appendix
