@@ -52,6 +52,8 @@ readings through communicating with the micro controller on the scale, however,
 this proved to be more work than creating a new scale. The components,
 procedure, results and future possibilities are explained in this paper.
 
+In the appendices we reproduce our original proposal, a listing of our exact
+code, and a list of what we used for this project.
 
 \section{Components}
 \subsection{Micro-controller}
@@ -205,6 +207,14 @@ the average once the readings are stable.
 \newpage
 \appendix
 
+\section{Proposal}
+
+This is the original proposal that we submitted:
+
+\begin{quote}
+  \input {proposal.txt}
+\end{quote}
+
 \section{Source Code}
 \label{apx:code}
 
@@ -213,9 +223,26 @@ The code for our project is available on
 \myLink{https://gitlab.engr.illinois.edu/cs-431-spring-2020/4crprojects/itj2\_sohammk2}{GitLab}. For
 convenience, we have reproduced the code below.
 
-
-
-
 \lstinputlisting[language=C]{../../BathroomScale/BathroomScale.ino}
+
+
+\section{List of Purchased Hardware and Useful Third-Party Software}
+\label{apx:links}
+
+\begin{itemize}
+  \item{For the controller, we used ultimately ended up using an
+    \myLink{https://www.amazon.com/dp/B07MK598QV}{Uno WiFi r2}. Previous
+    versions of our code worked with the
+    \myLink{https://www.amazon.com/dp/B008GRTSV6}{Uno r3}}, which is typically
+    cheaper.
+  \item{\myLink{https://www.amazon.com/dp/B079FTXR7Y}{HX711 chip and load
+      cells}}
+  \item{We used the standard
+    \myLink{https://www.arduino.cc/en/main/software}{Arduino IDE}}
+  \item{As a dependency, we used
+    \myLink{https://github.com/bogde/HX711}{``HX711''}. It can be installed from
+    the Arduino IDE; Menu Bar -> Tools -> Manage Libraries. Search for and
+    install ``HX711 Arduino Library''}
+\end{itemize}
 
 \end{document}

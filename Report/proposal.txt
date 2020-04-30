@@ -1,0 +1,15 @@
+For our project we will be making the software for controlling a digital
+bathroom scale.
+
+We will be making hardware modifications to an ordinary digital bathroom scale,
+removing some of the internal electronics and replacing them with a soldered
+connection to an external processor, such as a Raspberry Pi or
+Arduino. Depending on what we expect to be easiest with the particular scale we
+end up using, the new controller will either be reading raw data from the
+scale's sensors or simply be reading the values that the original electronics
+send to the display.
+
+Since the scale will only be used for a few seconds each day, we will design our
+controller such that the main processor is able to be turned completely off
+while the scale is not in use. This will greatly reduce power usage, and
+possibly even make it feasible to run the device off of battery power.
