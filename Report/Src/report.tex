@@ -3,8 +3,6 @@
 %%%%%%%%%%%%
 \documentclass[letterpaper,11pt]{article}
 \usepackage[margin=1.0in]{geometry}
-%empty header/footers; i.e. don't number pages
-\thispagestyle{empty}
 
 
 %%%%%%%%%
@@ -32,8 +30,6 @@
 \author{Ivan Johnson \and Soham Karanjikar}
 \date{2020-05-01}
 
-\pagestyle{empty}
-
 
 %%%%%%%
 %BEGIN%
@@ -57,7 +53,7 @@ In the appendices we reproduce our original proposal, a listing of our exact
 code, and a list of what we used for this project.
 
 \section{Components}
-\subsection{Micro-controller}
+\subsection{Microcontroller}
 The board used was an Arduino Uno, a hobbyist development board used in many
 projects at their preliminary stage, with the MCU being an ATMEGA4809. The
 reason for choosing this board was because of the ease of using it and the
@@ -103,8 +99,8 @@ Wheatstone Bridge configuration, as shown in figure \ref{img:banggood}.
   \label{img:banggood}
 \end{figure}
 
-Since the change in resistance is quite small, we use an amplifier chip, the
-HX711. This chip also has ADC included in it which allows us to directly
+Since the change in resistance is quite small, we a HX711 chip to amplify the
+change. This chip also has ADC included in it which allows us to directly
 communicate with it using the serial protocol given in its documentation. The
 whole system's wiring diagram is provided in figure \ref{img:wiring}.
 
