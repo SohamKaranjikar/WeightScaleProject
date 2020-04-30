@@ -1,16 +1,10 @@
-% Created by Bonita Graham
-% Last update: December 2019 By Kestutis Bendinskas
-
-% Authors:
-% Please do not make changes to the preamble until after the solid line of %s.
+% Heavily modified from template by:
+%     Created by Bonita Graham
+%     Last update: December 2019 By Kestutis Bendinskas
 
 \documentclass[10pt]{article}
 \usepackage[explicit]{titlesec}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{1em}
 \usepackage{hyphenat}
-\usepackage{ragged2e}
-\RaggedRight
 
 % These commands change the font. If you do not have Garamond on your computer, you will need to install it.
 %\usepackage{garamondx}
@@ -54,15 +48,6 @@
 \renewcommand{\bottomfraction}{0.85}
 \renewcommand{\floatpagefraction}{0.90}
 
-% These commands set the paragraph and line spacing
-\titleformat{\section}
-  {\normalfont}{\thesection}{1em}{\MakeUppercase{\textbf{#1}}}
-\titlespacing\section{0pt}{0pt}{-10pt}
-\titleformat{\subsection}
-  {\normalfont}{\thesubsection}{1em}{\textit{#1}}
-\titlespacing\subsection{0pt}{0pt}{-8pt}
-\renewcommand{\baselinestretch}{1.15}
-
 % This styles the bibliography and citations.
 %\usepackage[biblabel]{cite}
 \usepackage[sort&compress]{natbib}
@@ -94,8 +79,6 @@
 
 % Makes the title and author information appear.
 \maketitle
-
-% Abstracts are required.
 
 \newpage
 \section{Introduction}
@@ -162,8 +145,6 @@ The main motivating factor behind this project was to make a scale that could ta
 Another extension would be 3D print a frame for the scale so that the load cells do not move and the scale does not have to be calibrated on every start up.
 
 Currently, the readings are only visible on the console so adding an LCD screen would allow to see the readings on the scale without the need of a monitor. Also it would make sense to poll the readings for a some time and then display only the average once the readings are stable.
-
-
 
 \newpage
 \section{Appendix}
