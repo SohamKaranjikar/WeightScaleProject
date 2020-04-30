@@ -83,6 +83,13 @@ with no model/serial number or brand.
 
 \section{Procedure}
 \subsection{Wiring}
+Load cells use strain gauges to measure weight. A strain gauge contains a wire
+carefully shaped such that its resistance varies when the strain gauge undergoes
+elastic deformation. To form the load cell, the strain gauge is attached to a
+piece of metal in such a way that the strain gauge can be used to measure the
+deformation of the metal and infer the force that is being applied to the load
+cell.
+
 The load cells are wired according to the specification given to use in a
 Wheatstone Bridge configuration, as shown in figure \ref{img:banggood}.
 
@@ -94,14 +101,6 @@ Wheatstone Bridge configuration, as shown in figure \ref{img:banggood}.
       Good}}
   \label{img:banggood}
 \end{figure}
-
-A Wheatstone bridge is a circuit of 4 resistors, 2 known, 1 known and variable,
-and 1 unknown. Using this configuration we can measure the resistance of the
-load cells and calculate the the mass of an object placed on it. This is done by
-comparing the no load, calibrated, resistance to the resistance when a mass is
-placed on it. Since the load cells are basically pieces of metal, their
-resistance varies when varying masses are placed on it and this change is what
-we use to determine mass.
 
 Since the change in resistance is quite small, we use an amplifier chip, the
 HX711. This chip also has ADC included in it which allows us to directly
