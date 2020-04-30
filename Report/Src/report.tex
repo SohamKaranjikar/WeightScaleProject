@@ -82,10 +82,16 @@ with no model/serial number or brand.
 \section{Procedure}
 \subsection{Wiring}
 The load cells are wired according to the specification given to use in a
-Wheatstone Bridge configuration, pictured below:
+Wheatstone Bridge configuration, as shown in figure \ref{img:banggood}.
 
-{\center\includegraphics[scale=.5]{loadcellwiring}\par}
-{\textit{Source: \href{https://www.banggood.com/4pcs-DIY-50KG-Body-Load-Cell-Weight-Strain-Sensor-Resistance-With-HX711-AD-Module-p-1326815.html?utm_source=googleshopping&utm_medium=cpc_organic&gmcCountry=US&utm_content=shopping&utm_campaign=us-pc&currency=USD&createTmp=1&utm_source=googleshopping&utm_medium=cpc_bgs&utm_content=frank&utm_campaign=frank-ssc-us-toys-tool-ele-newcustom-ncv80-0116&ad_id=411455834827&gclid=Cj0KCQjwy6T1BRDXARIsAIqCTXpl9vvx29pgQ5I5bO3OfoMXg4CrioA-04iYSjtnyxtn5z5hVLJjgT4aAulwEALw_wcB&cur_warehouse=CN}{https://www.banggood.com/}}}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=.5]{loadcellwiring}
+  \caption{Image obtained from
+    \myLink{https://www.banggood.com/4pcs-DIY-50KG-Body-Load-Cell-Weight-Strain-Sensor-Resistance-With-HX711-AD-Module-p-1326815.html}{Bang
+      Good}}
+  \label{img:banggood}
+\end{figure}
 
 A Wheatstone bridge is a circuit of 4 resistors, 2 known, 1 known and variable,
 and 1 unknown. Using this configuration we can measure the resistance of the
@@ -98,23 +104,33 @@ we use to determine mass.
 Since the change in resistance is quite small, we use an amplifier chip, the
 HX711. This chip also has ADC included in it which allows us to directly
 communicate with it using the serial protocol given in the documentation. The
-whole systems wiring diagram is provided below:
+whole systems wiring diagram is provided in figure \ref{img:wiring}.
 
-{\center\includegraphics[scale=.3]{sytemwiring}\par}
-{\textit{Source: \href{https://circuitjournal.com/50kg-load-cells-with-HX711}{https://www.circuitjournal.com/}}}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=.3]{sytemwiring}
+  \caption{Image obtained from
+    \myLink{https://circuitjournal.com/50kg-load-cells-with-HX711}{Circuit Journal}}
+  \label{img:wiring}
+\end{figure}
 
 The Arduino uses its 5V out to power the HX711 chip and 2 GPIOs to handle the
 communication, 1 for clock and 1 for data.
 
 \subsection{Software}
 All the code was written in the Arduino IDE as a sketch; the code is available
-in the appendix. The only library used was for the HX711
-(\href{https://github.com/bogde/HX711}{https://github.com/bogde/HX711}). This
-library allowed us to communicate with the amplifier chip quite easily as the
-low level communication was already written for us.
+in the appendix. We only had one external dependency, a
+\myLink{https://github.com/bogde/HX711}{HX711 library}. This library allowed us
+to communicate with the amplifier chip quite easily as the low level
+communication was already written for us. Figure \ref{img:stateflow} shows a
+state diagram of our software.
 
-The state diagram is provided below:
-\includegraphics[scale=.7]{Flow}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=.7]{Flow}
+  \caption{The state diagram of our code}
+  \label{img:stateflow}
+\end{figure}
 
 The detection of HX711 is done by using the "is\_ready()" function from the
 library which just checks if there is valid communication. Then the system
@@ -126,10 +142,14 @@ a lot of power saving as most of the time the scale is not used.
 
 The sleep mode used is the "Power Down Mode" which is the lowest power
 consumption state of the MCU. The sleep modes and their power consummations are
-below:
+shown in figure \ref{img:sleep}
 
-{\center\includegraphics[scale=.7]{powermodes}\par}
-{\textit{Source: \href{http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega4808-4809-Data-Sheet-DS40002173A.pdf}{ATMEGA 4809 Datasheet}}}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{powermodes}
+  \caption{Image obtained from \myLink{http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega4808-4809-Data-Sheet-DS40002173A.pdf}{ATMEGA 4809 Datasheet}}
+  \label{img:sleep}
+\end{figure}
 
 By putting the MCU to sleep we save 10\textsuperscript{3}W of power as the
 current consumption goes from mA to uA.
