@@ -50,7 +50,8 @@ controller and apply the concept we had learned in CS 431 to a practical,
 useful, example. The initial plan was to use an existing scale and try to take
 readings through communicating with the micro controller on the scale, however,
 this proved to be more work than creating a new scale. The components,
-procedure, results and future possibilities are explained in this paper.
+procedure, results, limitations, and potential improvements are explained in
+this paper.
 
 In the appendices we reproduce our original proposal, a listing of our exact
 code, and a list of what we used for this project.
@@ -76,10 +77,10 @@ into a pre-made scale.
 The chip used for reading values from load cells is the HX711, an amplifier chip
 specifically designed for load cells.
 
-The bundle purchased came with 4 load cells included in it. These load cells had
-an individual rating of 50Kg each allowing us to make a scale that could provide
-accurate readings of masses up to 200Kg. The load cells were generic and came
-with no model/serial number or brand.
+The bundle purchased came with four load cells included in it. These load cells
+had an individual rating of 50Kg each allowing us to make a scale that could
+provide accurate readings of masses up to 200Kg. The load cells were generic and
+came with no model/serial number or brand.
 
 \section{Procedure}
 \subsection{Wiring}
@@ -104,8 +105,8 @@ Wheatstone Bridge configuration, as shown in figure \ref{img:banggood}.
 
 Since the change in resistance is quite small, we use an amplifier chip, the
 HX711. This chip also has ADC included in it which allows us to directly
-communicate with it using the serial protocol given in the documentation. The
-whole systems wiring diagram is provided in figure \ref{img:wiring}.
+communicate with it using the serial protocol given in its documentation. The
+whole system's wiring diagram is provided in figure \ref{img:wiring}.
 
 \begin{figure}[h]
   \centering
@@ -115,8 +116,8 @@ whole systems wiring diagram is provided in figure \ref{img:wiring}.
   \label{img:wiring}
 \end{figure}
 
-The Arduino uses its 5V out to power the HX711 chip and 2 GPIOs to handle the
-communication, 1 for clock and 1 for data.
+The Arduino uses its 5V out to power the HX711 chip and two GPIOs to handle the
+communication, one for clock and one for data.
 
 \subsection{Software}
 All the code was written in the Arduino IDE as a sketch; the code is available
@@ -152,7 +153,7 @@ shown in figure \ref{img:sleep}
   \label{img:sleep}
 \end{figure}
 
-By putting the MCU to sleep we save 10\textsuperscript{3}W of power as the
+By putting the MCU to sleep we save $10^3$W of power as the
 current consumption goes from mA to uA.
 
 The only way to wake up from this sleep mode is using an external pin interrupt
@@ -160,23 +161,20 @@ or an Real Time Clock Interrupt. We would have liked to used an external
 interrupt that triggered only when there is a mass above 2Kg on the scale,
 however, the digital communication did not allow us to do that. Instead we had
 to use the on board RTC to send a periodic interrupt to the MCU every 2 seconds
-to wake it up and check the mass. This is the best we could do to keep the
-process of reading autonomous (not turning the scale off and on every time using
-a switch).
-
+to wake it up and check the mass.
 
 \subsection{Problems Encountered}
 
 There were not many issues faced during the initial build of the system as
-everything was documented well, the process just took time to learn how to use
-the library and set up the hardware. The problems occurred after we had to move
-away from campus due to COVID-19 and did not have access to the Arduino we were
-using as it belonged to the lab. We had to switch to a new Arduino board that
-did not support the same sleep modes available. This process was tedious as a
-lot of testing had to be done to figure out how to use the RTC to wake up the
-MCU. In the end we did figure it out. Further, working on the project when the
-team had to communicate online was also difficult as only one of us could see
-the errors firsthand.
+everything was documented well. It just took a fair bit of time to come to an
+understanding of how load cells work and choose what hardware to use. The
+problems occurred after we had to move away from campus due to COVID-19 and did
+not have access to the Arduino we were using as it belonged to the lab. We had
+to switch to a new Arduino board that did not support the same sleep modes
+available. This process was tedious as a lot of testing had to be done to figure
+out how to use the RTC to wake up the MCU. In the end we did figure it
+out. Further, working on the project when the team had to communicate online was
+also difficult as only one of us could see the errors firsthand.
 
 Another problem was that the scale's calibration value had to be reset after
 physically moving the scale anytime. This was due to the fact that the slightest
