@@ -97,24 +97,18 @@
 
 % Abstracts are required.
 
-{\newpage \Large\section{Introduction}\par}
-{\large The main objective of this project was to create a weight scale and display the readings somewhere visible. The requirement was to use some sort of micro controller and apply the concept we had learned in CS 431 to a practical, useful, example. The initial plan was to use an existing scale and try to take readings through communicating with the micro controller on the scale, however, this proved to be more work than creating a new scale. The components, procedure, results and future possibilities are explained in this paper.
-\par}
+\newpage
+\section{Introduction}
+The main objective of this project was to create a weight scale and display the readings somewhere visible. The requirement was to use some sort of micro controller and apply the concept we had learned in CS 431 to a practical, useful, example. The initial plan was to use an existing scale and try to take readings through communicating with the micro controller on the scale, however, this proved to be more work than creating a new scale. The components, procedure, results and future possibilities are explained in this paper.
 
-\vspace{.12 in}
 
-% Start the main part of the manuscript here.
-% Comment out section headings if inappropriate to your discipline.
-% If you add additional section or subsection headings, use an asterisk * to avoid numbering.
-
-{\Large\section{Components}\par}
-{\large\subsection{Micro-controller}\par}
-{\large
+\section{Components}
+\subsection{Micro-controller}
 The board used was an Arduino Uno, a hobbyist development board used in many projects at their preliminary stage, with the MCU being an ATMEGA4809. The reason for choosing this board was because of the ease of using it and the libraries already available for communicating with various chips. Further, the Arduino IDE is also very user friendly and allowed us to quickly test code.
 
 We could have potentially used a cheaper and smaller option such as an ESP32, but there were Arduinos already present in the lab which allowed us to start immediately.
 
-{\large\subsection{Load Cells and Amplifier Chip}\par}
+\subsection{Load Cells and Amplifier Chip}
 While researching methods to communicate with a controller on an existing scale we found that load cells and their controller chip are very cheap and easy to use. This is the reason we decided to build our own scale rather than tapping into a pre-made scale.
 
 The chip used for reading values from load cells is the HX711, an amplifier chip specifically designed for load cells.
@@ -122,10 +116,9 @@ The chip used for reading values from load cells is the HX711, an amplifier chip
 The bundle purchased came with 4 load cells included in it. These load cells had an individual rating of 50Kg each allowing us to make a scale that could provide accurate readings of masses upto 200Kg. The load cells were generic and came with no model/serial number or brand.
 
 
-\par}
-{\newpage\Large\section{Procedure}\par}
-{\large
-{\large\subsection{Wiring}\par}
+
+\section{Procedure}
+\subsection{Wiring}
 The load cells are wired according to the specification given to use in a Wheatstone Bridge configuration, pictured below:
 
 {\center\includegraphics[scale=.5]{loadcellwiring}\par}
@@ -134,16 +127,17 @@ The load cells are wired according to the specification given to use in a Wheats
 A Wheatstone bridge is a circuit of 4 resistors, 2 known, 1 known and variable, and 1 unknown. Using this configuration we can measure the resistance of the load cells and calculate the the mass of an object placed on it. This is done by comparing the no load, calibrated, resistance to the resistance when a mass is placed on it. Since the load cells are basically pieces of metal, their resistance varies when varying masses are placed on it and this change is what we use to determine mass.
 
 Since the change in resistance is quite small, we use an amplifier chip, the HX711. This chip also has ADC included in it which allows us to directly communicate with it using the serial protocol given in the documentation. The whole systems wiring diagram is provided below:
+
 {\center\includegraphics[scale=.3]{sytemwiring}\par}
 {\textit{Source: \href{https://circuitjournal.com/50kg-load-cells-with-HX711}{https://www.circuitjournal.com/}}}
 
 The Arduino uses its 5V out to power the HX711 chip and 2 GPIOs to handle the communication, 1 for clock and 1 for data.
 
-{\large\subsection{Software}\par}
+\subsection{Software}
 All the code was written in the Arduino IDE as a sketch; the code is available in the appendix. The only library used was for the HX711 (\href{https://github.com/bogde/HX711}{https://github.com/bogde/HX711}). This library allowed us to communicate with the amplifier chip quite easily as the low level communication was already written for us.
 
 The state diagram is provided below:
-{\center\includegraphics[scale=.7]{Flow}\par}
+\includegraphics[scale=.7]{Flow}
 
 The detection of HX711 is done by using the "is\_ready()" function from the library which just checks if there is valid communication. Then the system starts polling to read values from the chip, if they are above a certain threshold (2Kg in our case) then the value is displayed on the console. If the reading is not above that threshold then the system goes to sleep by turning the CPU to its lowest sleep state and the HX711 to the sleep state. This allows for a lot of power saving as most of the time the scale is not used.
 
@@ -156,16 +150,13 @@ By putting the MCU to sleep we save 10\textsuperscript{3}W of power as the curre
 The only way to wake up from this sleep mode is using an external pin interrupt or an Real Time Clock Interrupt. We would have liked to used an external interrupt that triggered only when there is a mass above 2Kg on the scale, however, the digital communication did not allow us to do that. Instead we had to use the on board RTC to send a periodic interrupt to the MCU every 2 seconds to wake it up and check the mass. This is the best we could do to keep the process of reading autonomous (not turning the scale off and on every time using a switch).
 
 
-{\large\subsection{Problems Encountered}\par}
+\subsection{Problems Encountered}
 
 There were not many issues faced during the initial build of the system as everything was documented well, the process just took time to learn how to use the library and set up the hardware. The problems occurred after we had to move away from campus due to COVID-19 and did not have access to the Arduino we were using as it belonged to the lab. We had to switch to a new Arduino board that did not support the same sleep modes available. This process was tedious as a lot of testing had to be done to figure out how to use the RTC to wake up the MCU. In the end we did figure it out. Further, working on the project when the team had to communicate online was also difficult as only one of us could see the errors firsthand.
 
 Another problem was that the scale's calibration value had to be reset after physically moving the scale anytime. This was due to the fact that the slightest movement of the load cell placement affected the readings from the HX711 vastly. Since we did not have a proper mounted fit, the load cells moved quite easily. This issue however does not occur after calibrating and keeping the scale in one place.
-\par}
 
-
-{\Large \section{Future Extention} \par}
-{\large
+\section{Future Extention}
 The main motivating factor behind this project was to make a scale that could take the weight readings and upload them to a database. However, since uploading data is not part of what we had learned in CS 431 or a part of embedded systems, we were told that would not be a requirement in our project. Yes, there are scales available that upload the readings to their database, but it is controlled by and visible to the database owners. Building a scale allows to customize it as much as needed and upload the data to a personal a database which is not accessible to anyone else.
 
 Another extension would be 3D print a frame for the scale so that the load cells do not move and the scale does not have to be calibrated on every start up.
@@ -174,9 +165,8 @@ Currently, the readings are only visible on the console so adding an LCD screen 
 
 
 
-\par}
-
-\newpage {\Large \section{Appendix} \par}
+\newpage
+\section{Appendix}
 
 \lstinputlisting[language=C]{../../BathroomScale/BathroomScale.ino}
 
