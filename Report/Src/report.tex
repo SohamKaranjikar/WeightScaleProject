@@ -119,9 +119,9 @@ communication, 1 for clock and 1 for data.
 
 \subsection{Software}
 All the code was written in the Arduino IDE as a sketch; the code is available
-in the appendix. We only had one external dependency, a
-\myLink{https://github.com/bogde/HX711}{HX711 library}. This library allowed us
-to communicate with the amplifier chip quite easily as the low level
+in section \ref{apx:code} of the appendix. We only had one external dependency,
+a \myLink{https://github.com/bogde/HX711}{HX711 library}. This library allowed
+us to communicate with the amplifier chip quite easily as the low level
 communication was already written for us. Figure \ref{img:stateflow} shows a
 state diagram of our software.
 
@@ -203,7 +203,10 @@ it would make sense to poll the readings for a some time and then display only
 the average once the readings are stable.
 
 \newpage
-\section{Appendix}
+\appendix
+
+\section{Source Code}
+\label{apx:code}
 
 The code for our project is available on
 \myLink{https://github.com/SohamKaranjikar/WeightScaleProject}{GitHub} and on
